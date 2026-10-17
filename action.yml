@@ -1,0 +1,51 @@
+name: Drizzle Migrations Check
+description: Fail CI when your Drizzle ORM schema has changes that are missing a migration. Supports multiple configs and monorepos.
+author: polvallverdu
+branding:
+  icon: database
+  color: green
+
+inputs:
+  configs:
+    description: |
+      Newline-separated list of drizzle config paths, relative to `working-directory`.
+      Globs are supported (e.g. `packages/*/drizzle.config.ts`, `**/drizzle*.config.ts`).
+    required: false
+    default: drizzle.config.ts
+  runner:
+    description: Command used to invoke drizzle-kit, e.g. `npx`, `pnpm exec`, `yarn`, `bunx`.
+    required: false
+    default: npx
+  working-directory:
+    description: Base directory that config paths are resolved from.
+    required: false
+    default: .
+  run-in-config-dir:
+    description: |
+      Run drizzle-kit from each config's own directory (recommended for monorepos, where
+      schema/out paths in the config are relative to the package). Set to `false` to run
+      everything from `working-directory`.
+    required: false
+    default: "true"
+  check:
+    description: Also run `drizzle-kit check` to catch inconsistent migration history (e.g. colliding migrations after a merge).
+    required: false
+    default: "true"
+
+outputs:
+  failed-configs:
+    description: Newline-separated list of configs that failed the check (empty when everything is up to date).
+    value: ${{ steps.check.outputs.failed-configs }}
+
+runs:
+  using: composite
+  steps:
+    - id: check
+      shell: bash
+      env:
+        CONFIGS: ${{ inputs.configs }}
+        RUNNER: ${{ inputs.runner }}
+        WORKING_DIRECTORY: ${{ inputs.working-directory }}
+        RUN_IN_CONFIG_DIR: ${{ inputs.run-in-config-dir }}
+        RUN_CHECK: ${{ inputs.check }}
+      run: bash "$GITHUB_ACTION_PATH/check.sh"

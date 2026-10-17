@@ -1,0 +1,11 @@
+{
+  "name": "drizzle-migrations-check-tests",
+  "private": true,
+  "scripts": {
+    "test": "bash run.sh"
+  },
+  "devDependencies": {
+    "drizzle-kit": "^0.31.11",
+    "drizzle-orm": "^0.45.4"
+  }
+}
