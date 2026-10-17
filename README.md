@@ -42,6 +42,7 @@ No database needed. Works with one config or many, in a single repo or a monorep
 - [Outputs](#outputs)
 - [What a failure looks like](#what-a-failure-looks-like)
 - [FAQ](#faq)
+- [Let your coding agent set it up](#let-your-coding-agent-set-it-up)
 
 ## Quick start
 
@@ -276,6 +277,23 @@ affect the result.
 
 It's tested on `ubuntu-latest` and `macos-latest`. On Windows it should work under Git Bash, but that isn't tested.
 </details>
+
+## Let your coding agent set it up
+
+This repo includes an [agent skill](skills/setup-drizzle-migrations-check/SKILL.md) that teaches
+Claude Code (and other agents that support `SKILL.md`) how to add this check to a repo. The agent
+finds your drizzle configs, works out your package manager and monorepo layout, writes the
+workflow, and checks that your schema is currently up to date.
+
+```bash
+# with the skills CLI
+npx skills add polvallverdu/drizzle-migrations-check
+
+# or copy it into a project by hand
+mkdir -p .claude/skills && cp -R skills/setup-drizzle-migrations-check .claude/skills/
+```
+
+Then ask: *"set up drizzle migrations check in CI"*.
 
 ## Development
 
