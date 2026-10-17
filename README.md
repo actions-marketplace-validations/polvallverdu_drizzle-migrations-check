@@ -309,6 +309,11 @@ and a pnpm monorepo with a 3-config package and a single-config package). They c
 schemas, drift, renames, colliding migrations, globs, `working-directory`, missing configs and
 broken configs. CI also runs the action end to end with real npm and pnpm installs.
 
+## Contributing
+
+Issues and PRs are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for how the tests work and how
+releases are made.
+
 ## License
 
 [MIT](LICENSE)

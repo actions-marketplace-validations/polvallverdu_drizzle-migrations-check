@@ -1,0 +1,40 @@
+name: Bug report
+description: The action passed or failed when it shouldn't have, or errored.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you expected and what the action did instead.
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Workflow step
+      description: The `uses: polvallverdu/drizzle-migrations-check` step and its inputs.
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    id: layout
+    attributes:
+      label: Repo layout
+      description: Where your drizzle configs live, and their `schema` / `out` paths. Monorepo or not, and which package manager.
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Action log
+      description: The output of the step (expand the drizzle-kit groups).
+      render: text
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Action version, drizzle-kit version, runner OS.
+      placeholder: v1.0.0, drizzle-kit 0.31.11, ubuntu-latest
+    validations:
+      required: true
